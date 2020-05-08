@@ -5,3 +5,10 @@
 *.tags-wal
 
 .codelite/
+src/prog_c_001/Debug/.d
+*.o
+*.d
+*.mk
+src/Makefile
+*.json
+*.txt

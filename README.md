@@ -1,5 +1,4 @@
 # Reversing de C a Ghidra
-Sencillos programas con su fuente escrito en C y posteriormente analizados en Ghidra para entender el desensamblado.
 
 Esto es un recopilatorio de sencillos programas escritos en **lenguaje C** (en entorno **Windows**) que he ido haciendo para posteriormente realizar un análisis estático en **Ghidra** a modo de aprendizaje en todo lo relacionado con la **Ingeniería inversa** (**Reversing** en inglés). 
 

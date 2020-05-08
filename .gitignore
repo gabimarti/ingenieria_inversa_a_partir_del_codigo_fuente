@@ -1,6 +1,7 @@
 
 *.workspace
-.codelite/
 *.tags
 *.tags-shm
 *.tags-wal
+
+.codelite/

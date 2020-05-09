@@ -1,5 +1,7 @@
 # prog_c_001
 
+## El programa (Código Fuente)
+
 Tenemos aquí un primer programa, muy sencillo, que nos muestra el texto **"hola mundo"** en una linea y después la suma de dos variables. 
 
 ![img_001](img/img_001.png "main") 
@@ -14,7 +16,11 @@ Compilamos y vemos el resultado que nos muestra ...
 
 En el análisis de este programa me voy a detener con mas detalle en algunos pasos previos, que en los siguientes análisis omitiré, con el único objetivo de ver donde se sitúa exactamente la función **main()** del programa.
 
+## Análisis estático con Ghidra
+
 Veamos que nos muestra **Ghidra**:
+
+### Entry point
 
 Si buscamos el **"entry"** (punto de entrada) vemos que nos lleva a **_mainCRTStartup** que establece el tipo de aplicación con **__set_app_type()** según sea de Consola (**CLI**) o ventanas de Windows (**GUI**) y a continuación llama a la función **FUN_004011a0**.
 
@@ -29,8 +35,10 @@ Detalle de la llamada a **_main()**
  ![img_005](img/img_005.png "FUN_004011a0 call _main")
  
 Si hacemos **doble click** o pulsamos **enter** sobre **__main()** entraremos en la función y veremos que nos muestra Ghidra. 
- 
-Y podemos comprobar que el Descompilado se acerca bastante a nuestro código original. A partir de este punto tratare de vincular el fuente en C con las diferentes partes en assembler para identificar los diferentes bloques de código que genera el compilador.
+
+### main()
+
+Podemos comprobar que el Descompilado se acerca bastante a nuestro código original. A partir de este punto tratare de vincular el fuente en C con las diferentes partes en assembler para identificar los diferentes bloques de código que genera el compilador.
  
 ![img_006](img/img_006.png "main")
   
@@ -46,11 +54,15 @@ La primera cosa curiosa es que la cadena "hola mundo" la divide en tres movimien
 
 Después se puede identificar como asigna los valores de las variables **a** y **b**, seguidamente las suma y asigna el valor a **c**, aunque en el descompilado no se refleja esta suma, sino que se pone directamente el valor final. 
 
-Tras hacer las operaciones, vemos como prepara el paso de parametros para imprimir el texto, pasando únicamente la dirección del inicio de la cadena "hola mundo"
+Tras hacer las operaciones, vemos como prepara el paso de parámetros para imprimir el texto, pasando únicamente la dirección del inicio de la cadena "hola mundo", la variable **str_array_hola**.
 
+Después de llamar a la función **_printf()** procede a mover los valores de las variables **c**, **b** y **a**, a las respectivas posiciones de la pila para pasarlas como parámetro, así como el texto con formato que precede a estas variables, y finalmente llama de nuevo a la función **_printf()**.
 
+Cabe notar que en el renombrado de las variables en el apartado del descompilado (zona derecha de la pantalla), no he finalizado la especificación del tipo de cada variable. Nótese que pone **undefined** en todas las variables excepto en una que he podido indicar como **int**. Parece ser algún problema del descompilador de Ghidra, pues al cambiar el tipo hacia desaparecer algunas variables del código y he optado por no especificar el tipo.
 
+![img_009](img/img_009.png "almacenamiento variables")
 
+![img_010](img/img_010.png "pila")
 
 
 ### fin prog_c_001

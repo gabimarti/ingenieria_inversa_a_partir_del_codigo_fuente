@@ -1,6 +1,9 @@
-# Reversing de C a Ghidra
+# Ingeniería inversa a partir del Código Fuente
 
-Esto es un recopilatorio de sencillos programas escritos en **lenguaje C** (en entorno **Windows**) que he ido haciendo para posteriormente realizar un análisis estático en **Ghidra** a modo de aprendizaje en todo lo relacionado con la **Ingeniería inversa** (**Reversing** en inglés). 
+Esto es un recopilatorio de sencillos programas escritos principalmente en **lenguaje C** (en entorno **Windows**) que he ido haciendo para posteriormente realizar un análisis estático de ingenieria inversa (**reversing**) usando **Ghidra**, mayoritariamente, y también **Cutter / Radare2**, con el objetivo de mejorar mi comprensión y aprendizaje. 
+
+Cedo esta información también con licencia **GPL** con el objetivo de ayudar y compartir a quien esté interesado en el reversing y quiera comentar, complementar, contribuir o corregir mis posibles errores de comprensión. 
+
 
 ## Repositorios relacionados 
 Tengo otros repositorios con análisis realizados, tanto estáticos como dinámicos que he ido haciendo anteriormente o paralelamente a este o con temas relacionados.

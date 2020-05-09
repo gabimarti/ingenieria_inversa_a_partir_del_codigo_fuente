@@ -1,6 +1,19 @@
-# Reversing de C a Ghidra
+# prog_c_001
 
-Esto es un recopilatorio de sencillos programas escritos en **lenguaje C** (en entorno **Windows**) que he ido haciendo para posteriormente realizar un análisis estático en **Ghidra** a modo de aprendizaje en todo lo relacionado con la **Ingeniería inversa** (**Reversing** en inglés). 
+Tenemos aqui un primer programa, muy sencillo, que nos muestra el texto **"hola mundo"** en una linea y después la suma de dos variables.
+
+![img_001](img/img_001.png "main") 
+
+Para ello definimos un array de caracteres con el texto "hola mundo", despues dos enteros que inicializamos con unos valores arbitrarios y un tercer entero con la suma de los dos anteriores.
+
+Seguidamente mostramos por pantalla el texto y los valores.
+
+Compilamos y vemos el resultado que nos muestra ...
+
+![img_002](img/img_002.png "ejecución") 
+
+Ahora vemamos que nos muestra **Ghidra**:
+
 
 ## Repositorios relacionados 
 Tengo otros repositorios con análisis realizados, tanto estáticos como dinámicos que he ido haciendo anteriormente o paralelamente a este o con temas relacionados.
@@ -16,13 +29,13 @@ Los otros repositorios están redactados en Inglés, este en Castellano. Simplem
 Para desarrollar y analizar los programas he usado las siguientes herramientas:
 
 * IDE [Codelite](https://codelite.org/)
-* Compilador de C/C++ [MinGW](http://www.mingw.org/)
+* Compilador [MinGW](http://www.mingw.org/)
 * Reversing [Ghidra](https://ghidra-sre.org/)
 
 
 ## Lista de Programas y su análisis
 
-* [prog_c_001](analisis/prog_c_001/prog_c_001.md) 
+* AAAA
 * BBBB
 * CCCC
 

@@ -14,7 +14,7 @@ Compilamos y vemos el resultado que nos muestra ...
 
 ![img_002](img/img_002.png "ejecución") 
 
-En el análisis de este programa me voy a detener con mas detalle en algunos pasos previos, que en los siguientes análisis omitiré, con el único objetivo de ver donde se sitúa exactamente la función **main()** del programa.
+En el análisis de este programa me voy a detener con mas detalle en algunos pasos previos, que en posteriores análisis omitiré. El objetivo es ver donde se sitúa exactamente la función **main()** del programa.
 
 ## Análisis estático con Ghidra
 
@@ -26,7 +26,7 @@ Si buscamos el **"entry"** (punto de entrada) vemos que nos lleva a **_mainCRTSt
 
 ![img_003](img/img_003.png "grafico")
 
-Dentro de esta función, no vamos a profundizar en todas las instrucciones que ejecuta, pero si podremos identificar la función **main()** que nos interesa, que es el **_main()** que recibe como parámetros los argumentos de la linea de comandos (aunque no los usemos en el programa), y al finalizar esta, se ejecutan las funciones de salida del programa, **__cexit()** y **_ExitProcess@4**.
+Dentro de esta función, no vamos a profundizar en todas las instrucciones que ejecuta, pero si podremos identificar la función **main()** que nos interesa. Es el **_main()** que recibe como parámetros los argumentos de la linea de comandos (aunque no los usemos en el programa), y al finalizar esta función se ejecutan las funciones de salida del programa, **__cexit()** y **_ExitProcess@4**.
 
  ![img_004](img/img_004.png "FUN_004011a0")
 
@@ -50,7 +50,7 @@ El primer paso será renombrar las diferentes variables generadas por Ghidra y v
 
 ![img_008](img/img_008.png "renombrando variables")
 
-La primera cosa curiosa es que la cadena "hola mundo" la divide en tres movimientos con las direcciones a cada parte de la cadena: "hola", " mun", "do\n\null", que curiosamente son 4 caracteres cada grupo. 
+La primera cosa curiosa es que la cadena **"hola mundo\n"** la divide en tres movimientos con valores hexadecimales que corresponden a 3 partes de la cadena: "hola", " mun", "do\n\null", que curiosamente son 4 caracteres cada grupo. Es decir, tres numeros de 32 bits. 
 
 Después se puede identificar como asigna los valores de las variables **a** y **b**, seguidamente las suma y asigna el valor a **c**, aunque en el descompilado no se refleja esta suma, sino que se pone directamente el valor final. 
 
@@ -62,7 +62,37 @@ Cabe notar que en el renombrado de las variables en el apartado del descompilado
 
 ![img_009](img/img_009.png "almacenamiento variables")
 
+Volviendo a las variables y las cadenas de texto, podemos observar 2 diferencias.
+
+En el caso de la cadena "hola mundo\n", tal y como se detalla en la imagen anterior, la divide en tres números de 32 bits para volcarlos en la pila y pasar luego la dirección de memoria del inicio de la cadena.
+
+Lo mismo pasa con los valores de **a**, **b** y **c** en los que carga los valores directamente en la pila, o el valor del registro resultado de la suma en el caso de **c**.
+
+No hace lo mismo para la cadena **"la suma de a(%d)...."** que esta definida en la sección **.rdata** es la única cadena de texto que encuentra si hacemos una búsqueda de strings.
+
 ![img_010](img/img_010.png "pila")
+
+## Análisis estático con Cutter
+
+Cargamos ahora el mismo programa con **Cutter** y veremos si se aprecia alguna diferencia.
+
+De entrada el desensamblado nos ofrece mas información en cada opcode de ensamblador que en el caso de Ghidra (es probable que Ghidra también lo haga y yo no lo haya sabido ver y activar). Aqui directamente vemos que los valores hexadecimales cargados sobre la pila corresponden al texto "hola mundo\n" gracias a estos comentarios de cada linea.
+
+El descompilado es similar, casi exacto, excepto por el nombre de las variables, al que nos ofrece Ghidra. Esto es debido a que usa el mismo motor.
+
+![img_011](img/img_011.png "cutter main")
+
+Si utilizamos el motor de descompilado original de radare, **r2dec** el código se muestra muy diferente, con muchos mas movimientos y asignaciones en variables dificultando algo más su comprensión.
+
+![img_012](img/img_012.png "r2dec")
+
+Seguimos con el descompilado del motor de Ghidra y pasamos a renombrar las variables. Y podemos observar como el cambio en el desensamblado se refleja en el descompilado cuando se usa el motor nativo de radare, es decir, **r2dec**.
+
+![img_013](img/img_013.png "variables")
+
+En cambio, usando el motor de Ghidra vemos que los comentarios si se trasladan, pero el renombrado de variables no es efectivo, por lo que en lugar de ayudar puede dificultar su seguimiento en caso de un programa o función complejos.
+
+![img_014](img/img_014.png "variables en descompilado motor Ghidra")
 
 
 ### fin prog_c_001

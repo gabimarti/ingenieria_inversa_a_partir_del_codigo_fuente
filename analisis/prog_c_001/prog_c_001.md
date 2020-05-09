@@ -34,7 +34,7 @@ Detalle de la llamada a **_main()**
 
  ![img_005](img/img_005.png "FUN_004011a0 call _main")
  
-Si hacemos **doble click** o pulsamos **enter** sobre **__main()** entraremos en la función y veremos que nos muestra Ghidra. 
+Si hacemos **doble click** o pulsamos **enter** sobre **_main()** entraremos en la función y veremos que nos muestra Ghidra. 
 
 ### main()
 

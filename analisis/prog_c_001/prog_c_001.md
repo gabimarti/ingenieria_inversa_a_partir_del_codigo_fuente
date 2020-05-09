@@ -60,6 +60,8 @@ Después de llamar a la función **_printf()** procede a mover los valores de la
 
 Cabe notar que en el renombrado de las variables en el apartado del descompilado (zona derecha de la pantalla), no he finalizado la especificación del tipo de cada variable. Nótese que pone **undefined** en todas las variables excepto en una que he podido indicar como **int**. Parece ser algún problema del descompilador de Ghidra, pues al cambiar el tipo hacia desaparecer algunas variables del código y he optado por no especificar el tipo.
 
+### Almacenamiento de variables
+
 ![img_009](img/img_009.png "almacenamiento variables")
 
 Volviendo a las variables y las cadenas de texto, podemos observar 2 diferencias.
@@ -80,13 +82,19 @@ De entrada el desensamblado nos ofrece mas información en cada opcode de ensamb
 
 El descompilado es similar, casi exacto, excepto por el nombre de las variables, al que nos ofrece Ghidra. Esto es debido a que usa el mismo motor.
 
+### main()
+
 ![img_011](img/img_011.png "cutter main")
 
 Si utilizamos el motor de descompilado original de radare, **r2dec** el código se muestra muy diferente, con muchos mas movimientos y asignaciones en variables dificultando algo más su comprensión.
 
+### Descompilado nativo
+
 ![img_012](img/img_012.png "r2dec")
 
 Seguimos con el descompilado del motor de Ghidra y pasamos a renombrar las variables. Y podemos observar como el cambio en el desensamblado se refleja en el descompilado cuando se usa el motor nativo de radare, es decir, **r2dec**.
+
+### Renombrado de variables
 
 ![img_013](img/img_013.png "variables")
 
@@ -94,6 +102,11 @@ En cambio, usando el motor de Ghidra vemos que los comentarios si se trasladan, 
 
 ![img_014](img/img_014.png "variables en descompilado motor Ghidra")
 
+### Tipos de variables
+
+En lo que a la definición y tipos de variables parece mas limpio con Cutter que con Ghidra una vez trasladado al codigo ensamblador. 
+
+![img_015](img/img_015.png "definicion de tipos")
 
 ### fin prog_c_001
 

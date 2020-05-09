@@ -1,50 +1,48 @@
-# prog_c_001
+# prog_c_002
 
 ## El programa (Código Fuente)
 
-Tenemos aquí un primer programa, muy sencillo, que nos muestra el texto **"hola mundo"** en una linea y después la suma de dos variables. 
+Con este segundo programa introducimos las llamadas a las funciones, y creamos dos sencillas funciones. Una que devuelve la suma de dos enteros, y otra que devuelve la resta de un entero sobre otro.
+
+Tras devolver los resultados se muestran por pantalla desde la función **main()**
 
 ![img_001](img/img_001.png "main") 
 
-Para ello definimos un array de caracteres con el texto **"hola mundo"**, después dos enteros que inicializamos con unos valores arbitrarios y un tercer entero con la suma de los dos anteriores.
-
-Seguidamente mostramos por pantalla el texto y los valores.
-
-Compilamos y vemos el resultado que nos muestra ...
+Aqui vemos el resultado de la ejecución.
 
 ![img_002](img/img_002.png "ejecución") 
 
-En el análisis de este programa me voy a detener con mas detalle en algunos pasos previos, que en posteriores análisis omitiré. El objetivo es ver donde se sitúa exactamente la función **main()** del programa.
 
 ## Análisis estático con Ghidra
 
-Veamos que nos muestra **Ghidra**:
+Pasamos a ver el código en **Ghidra**:
 
 ### Entry point
 
-Si buscamos el **"entry"** (punto de entrada) vemos que nos lleva a **_mainCRTStartup** que establece el tipo de aplicación con **__set_app_type()** según sea de Consola (**CLI**) o ventanas de Windows (**GUI**) y a continuación llama a la función **FUN_004011a0**.
+El formato del **entry point** no varia, y es exactamente igual que el del ejemplo anterior.
 
-![img_003](img/img_003.png "grafico")
+No entraré en mas detalles. Simplemente mostrar la imagen de ejemplo.
 
-Dentro de esta función, no vamos a profundizar en todas las instrucciones que ejecuta, pero si podremos identificar la función **main()** que nos interesa. Es el **_main()** que recibe como parámetros los argumentos de la linea de comandos (aunque no los usemos en el programa), y al finalizar esta función se ejecutan las funciones de salida del programa, **__cexit()** y **_ExitProcess@4**.
+![img_003](img/img_003.png "entry")
+
+La siguiente función en la dirección **004011a0** también tiene el mismo código. Las mismas inicializaciones y llamadas a funciones, recogida de variables de entorno, argumentos y llamada a la función **main()** de nuestro código en C.
 
  ![img_004](img/img_004.png "FUN_004011a0")
 
-Detalle de la llamada a **_main()**
+Y entramos en la función **_main()** donde podemos ver en el Descompilado la estructura de nuestro código original en C. Incluso los mismos nombres de las dos funciones que hemos creado, con la salvedad de que van precedidas por un guión bajo. Eso es así por que se ha establecido la opción **debug** en el compilador que incluye los nombres de los símbolos. 
 
  ![img_005](img/img_005.png "FUN_004011a0 call _main")
  
-Si hacemos **doble click** o pulsamos **enter** sobre **_main()** entraremos en la función y veremos que nos muestra Ghidra. 
 
-### main()
+### Variables desaparecidas
 
-Podemos comprobar que el Descompilado se acerca bastante a nuestro código original. A partir de este punto tratare de vincular el fuente en C con las diferentes partes en assembler para identificar los diferentes bloques de código que genera el compilador.
- 
+Si comparamos el descompilado con el codigo fuente original vemos que las variables **a** y **b** no aparecen inicializadas, sino que se ponen directamente los valores como parámetros de las funciones. Esto puede ser debido a las optimizaciones del compilador, o incluso la propia interpretación del descompilador de Ghidra. También podría ser diferente si se usara otro compilador de **lenguaje C** aunque el fuente sea exactamente el mismo.
+
 ![img_006](img/img_006.png "main")
   
-Aquí vemos en el lado izquierdo el código original y en el derecho la reconstrucción hecha por Ghidra.
+Aquí la sustitucion de variables en la parte descompilada es rápida, aunque en la parte del codigo de ensamblador veremos que hay muchos movimientos que pasamos a observar.
   
-![img_007](img/img_007.png "real main vs ghidra main")
+![img_007](img/img_007.png "paso de parametros")
 
 El primer paso será renombrar las diferentes variables generadas por Ghidra y veremos si nos crea alguna de más en la interpretación del código assembler.
 

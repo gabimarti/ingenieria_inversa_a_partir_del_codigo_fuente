@@ -26,7 +26,7 @@ Para desarrollar y analizar los programas he usado las siguientes herramientas:
 
 ## Lista de Programas y su análisis
 
-* [prog_c_001](analisis/prog_c_001/prog_c_001.md) 
+* [prog_c_001](analisis/prog_c_001/prog_c_001.md) Sencillo programa de consola con un "hola mundo" y suma de dos variables.
 * BBBB
 * CCCC
 

@@ -12,3 +12,4 @@ src/prog_c_001/Debug/.d
 src/Makefile
 *.json
 *.txt
+*.project

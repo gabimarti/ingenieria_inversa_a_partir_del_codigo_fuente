@@ -110,4 +110,4 @@ En lo que a la definición y tipos de variables parece mas limpio con Cutter que
 
 ### fin prog_c_001
 
-[**SIGUIENTE** prog_c_002 ==>>](analisis/prog_c_002/prog_c_002.md)
+[**SIGUIENTE** prog_c_002 ==>>](../analisis/prog_c_002/prog_c_002.md)

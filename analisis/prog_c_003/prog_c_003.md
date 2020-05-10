@@ -35,24 +35,20 @@ Esta diferencia se ve reflejada en el código en ensamblador donde se ve la crea
 
 ### Suma n enteros
 
-Paramos a ver ahora la función de la suma, pero paso a mostrar directamente ya las funciones con las variables renombradas, pues llegados a este punto creo que ya se entiende el procedimiento.
+Pasamos a ver ahora la función de la suma, pero mostraré directamente las funciones con las variables renombradas, pues llegados a este punto creo que ya se entiende el procedimiento.
 
 ![img_005](img/img_005.png "suma n enteros")
 
-Y podemos comprobar que Ghidra no ha hecho un bucle **for**, sino lo ha convertido en un **while**, aunque ya sabemos que en ensamblador todos los bucles serán iguales por que serán todos compuestos por una comparación **CMP** seguida de un salto condicional, **JLE** en este caso. 
+Podemos comprobar que Ghidra no ha hecho un bucle **for**, sino lo ha convertido en un **while**, aunque ya sabemos que en ensamblador todos los bucles serán iguales por que serán todos compuestos por una comparación **CMP** seguida de un salto condicional, **JLE** en este caso. 
  
 
 ## Análisis estático con Cutter
 
-Cargamos ahora el mismo programa con **Cutter** y veremos si se aprecia alguna diferencia.
-
-A partir de este programa usaré por defecto el compilador nativo de **radare2**, el **r2dec** ya que ya hemos visto que usando el motor de Ghidra el descompilado es similar, pero nos limita el renombrado de variables.
-
-### Entry Point
+### Main
 
 El punto de entrada se descompila de manera similar y no nos ofrece nada nuevo.
 
-![img_012](img/img_012.png "entry")
+![img_006](img/img_006.png "main")
 
 La función **fcn.004011a0** también nos muestra claramente la llamada a la función **_main()** que es en la que nos centraremos a partir de ahora en los siguientes programas.
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 /*
  * prog_c_002
+ * Llamadas a funciones de suma y resta.
  */
 
 // Devuelve la resta de dos enteros

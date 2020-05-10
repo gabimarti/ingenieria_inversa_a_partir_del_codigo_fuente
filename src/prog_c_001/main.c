@@ -1,6 +1,7 @@
 #include <stdio.h>
 /*
  * prog_c_001
+ * impresion texto "hola mundo" y suma de dos enteros.
  */
 int main(int argc, char **argv)
 {

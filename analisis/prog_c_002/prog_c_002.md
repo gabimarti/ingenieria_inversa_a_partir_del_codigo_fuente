@@ -29,11 +29,11 @@ No entraré en mas detalles. Simplemente mostrar la imagen de ejemplo.
 
 La siguiente función en la dirección **004011a0** también tiene el mismo código. Las mismas inicializaciones y llamadas a funciones, recogida de variables de entorno, argumentos y llamada a la función **main()** de nuestro código en C.
 
- ![img_004](img/img_004.png "FUN_004011a0")
+![img_004](img/img_004.png "FUN_004011a0")
 
 Y entramos en la función **_main()** donde podemos ver en el Descompilado la estructura de nuestro código original en C. Incluso los mismos nombres de las dos funciones que hemos creado, con la salvedad de que van precedidas por un guión bajo. Eso es así por que se ha establecido la opción **debug** en el compilador que incluye los nombres de los símbolos. 
 
- ![img_005](img/img_005.png "FUN_004011a0 call _main")
+![img_005](img/img_005.png "FUN_004011a0 call _main")
  
 
 ### Variables desaparecidas?
@@ -141,3 +141,4 @@ Y con la **resta** el caso es similar a la suma pero claramente comprensible la 
 ### fin prog_c_002
 
 [<<== **ANTERIOR** prog_c_001](../prog_c_001/prog_c_001.md)
+[**SIGUIENTE** prog_c_003 ==>>](../prog_c_003/prog_c_003.md)

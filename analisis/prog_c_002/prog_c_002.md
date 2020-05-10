@@ -1,5 +1,6 @@
 # prog_c_002
 
+
 ## El programa (Código Fuente)
 
 Con este segundo programa introducimos las llamadas a las funciones, y creamos dos sencillas funciones. Una que devuelve la suma de dos enteros, y otra que devuelve la resta de un entero sobre otro.
@@ -16,6 +17,7 @@ Aqui vemos el resultado de la ejecución.
 ## Análisis estático con Ghidra
 
 Pasamos a ver el código en **Ghidra**:
+
 
 ### Entry point
 
@@ -34,77 +36,107 @@ Y entramos en la función **_main()** donde podemos ver en el Descompilado la es
  ![img_005](img/img_005.png "FUN_004011a0 call _main")
  
 
-### Variables desaparecidas
+### Variables desaparecidas?
 
-Si comparamos el descompilado con el codigo fuente original vemos que las variables **a** y **b** no aparecen inicializadas, sino que se ponen directamente los valores como parámetros de las funciones. Esto puede ser debido a las optimizaciones del compilador, o incluso la propia interpretación del descompilador de Ghidra. También podría ser diferente si se usara otro compilador de **lenguaje C** aunque el fuente sea exactamente el mismo.
+Si comparamos el descompilado con el codigo fuente original vemos que las variables **a** y **b** no aparecen inicializadas, sino que se ponen directamente los valores como parámetros de las funciones. Esto, en algunos casos, puede ser debido a las optimizaciones del compilador, pero en este caso es una optimización generada por el descompilador de Ghidra. También podría ser diferente si se usara otro compilador de **lenguaje C** aunque el fuente sea exactamente el mismo.
 
 ![img_006](img/img_006.png "main")
   
-Aquí la sustitucion de variables en la parte descompilada es rápida, aunque en la parte del codigo de ensamblador veremos que hay muchos movimientos que pasamos a observar.
+Aquí la sustitución de variables en la parte descompilada es rápida, aunque en la parte del código de ensamblador veremos que hay muchos movimientos que pasamos a observar.
+
+
+### Parámetros 
+
+Podemos ver como carga los valores de las variables **a** y **b** en la pila, para después volverlos a cargar en el registro **EAX** para situarlos de nuevo en la pila en las posiciones de cada uno de los parámetros a pasar en la llamada a la función **_suma()**. Justo al finalizar la llamada a la función se carga el resultado que esta en el registro **EAX** sobre la zona de la pila correspondiente a la variable **c**.
   
-![img_007](img/img_007.png "paso de parametros")
+![img_007](img/img_007.png "paso de parámetros")
 
-El primer paso será renombrar las diferentes variables generadas por Ghidra y veremos si nos crea alguna de más en la interpretación del código assembler.
+En la llamada a la función de impresión por pantalla (**_printf**) hace exactamente lo mismo. En este caso son 4 parámetros. Empieza cargando el cuarto parámetro (contando de izquierda a derecha), el cual es el resultado de la suma, es decir, la variable **c** representada en el descompilado como **EAX**. Después la variable **b**, la **a**, y por último el texto con el formato que lo obtiene de la sección **.rdata**.
 
-![img_008](img/img_008.png "renombrando variables")
+![img_008](img/img_008.png "paso de parámetros 2")
 
-La primera cosa curiosa es que la cadena **"hola mundo\n"** la divide en tres movimientos con valores hexadecimales que corresponden a 3 partes de la cadena: "hola", " mun", "do\n\null", que curiosamente son 4 caracteres cada grupo. Es decir, tres numeros de 32 bits. 
 
-Después se puede identificar como asigna los valores de las variables **a** y **b**, seguidamente las suma y asigna el valor a **c**, aunque en el descompilado no se refleja esta suma, sino que se pone directamente el valor final. 
+### Sección de Datos
 
-Tras hacer las operaciones, vemos como prepara el paso de parámetros para imprimir el texto, pasando únicamente la dirección del inicio de la cadena "hola mundo", la variable **str_array_hola**.
+Aquí podemos ver la sección **.rdata** con el texto con el formato de la impresión.
 
-Después de llamar a la función **_printf()** procede a mover los valores de las variables **c**, **b** y **a**, a las respectivas posiciones de la pila para pasarlas como parámetro, así como el texto con formato que precede a estas variables, y finalmente llama de nuevo a la función **_printf()**.
+![img_009](img/img_009.png ".rdata")
 
-Cabe notar que en el renombrado de las variables en el apartado del descompilado (zona derecha de la pantalla), no he finalizado la especificación del tipo de cada variable. Nótese que pone **undefined** en todas las variables excepto en una que he podido indicar como **int**. Parece ser algún problema del descompilador de Ghidra, pues al cambiar el tipo hacía desaparecer algunas variables del código y he optado por no especificar el tipo.
 
-### Almacenamiento de variables
+### Funciones
 
-![img_009](img/img_009.png "almacenamiento variables")
+Pasemos a ver las llamadas a las funciones y ver las operaciones que se hacen.
 
-Volviendo a las variables y las cadenas de texto, podemos observar 2 diferencias.
+En el caso de la **suma** podemos observar como Ghidra a simplificado nuestra función original, donde hemos usado una variable temporal expresamente, la variable **s** para almacenar la suma de los dos parámetros y después devolver el resultado.
 
-En el caso de la cadena "hola mundo\n", tal y como se detalla en la imagen anterior, la divide en tres números de 32 bits para volcarlos en la pila y pasar luego la dirección de memoria del inicio de la cadena.
+![img_010](img/img_010.png "suma")
 
-Lo mismo pasa con los valores de **a**, **b** y **c** en los que carga los valores directamente en la pila, o el valor del registro resultado de la suma en el caso de **c**.
+Si analizamos la parte de código en ensamblador, equiparando con el código original podremos ver las siguientes partes:
 
-No hace lo mismo para la cadena **"la suma de a(%d)...."** que esta definida en la sección **.rdata** es la única cadena de texto que encuentra si hacemos una búsqueda de strings.
+* Código inicial que salva el estado de la pila (en amarillo).
+* Carga primer parámetro (morado).
+* Carga segundo parámetro (rojo).
+* Efectua la suma (verde).
+* Asigna resultado a variable **s** (azul).
 
-![img_010](img/img_010.png "pila")
+El caso de la **resta** es muy similar al de la suma. En la imagen, se puede ver, aunque he omitido lineas de colores por que creo que es evidente cada paso con los comentarios.
+
+![img_011](img/img_011.png "resta")
+
 
 ## Análisis estático con Cutter
 
 Cargamos ahora el mismo programa con **Cutter** y veremos si se aprecia alguna diferencia.
 
-De entrada el desensamblado nos ofrece mas información en cada opcode de ensamblador que en el caso de Ghidra (es probable que Ghidra también lo haga y yo no lo haya sabido ver y activar). Aqui directamente vemos que los valores hexadecimales cargados sobre la pila corresponden al texto "hola mundo\n" gracias a estos comentarios de cada linea.
+A partir de este programa usaré por defecto el compilador nativo de **radare2**, el **r2dec** ya que ya hemos visto que usando el motor de Ghidra el descompilado es similar, pero nos limita el renombrado de variables.
 
-El descompilado es similar, casi exacto, excepto por el nombre de las variables, al que nos ofrece Ghidra. Esto es debido a que usa el mismo motor.
+### Entry Point
 
-### main()
+El punto de entrada se descompila de manera similar y no nos ofrece nada nuevo.
 
-![img_011](img/img_011.png "cutter main")
+![img_012](img/img_012.png "entry")
 
-Si utilizamos el motor de descompilado original de radare, **r2dec** el código se muestra muy diferente, con muchos mas movimientos y asignaciones en variables dificultando algo más su comprensión.
+La función **fcn.004011a0** también nos muestra claramente la llamada a la función **_main()** que es en la que nos centraremos a partir de ahora en los siguientes programas.
 
-### Descompilado nativo
+![img_013](img/img_013.png "fcn.004011a0")
 
-![img_012](img/img_012.png "r2dec")
+### Main
 
-Seguimos con el descompilado del motor de Ghidra y pasamos a renombrar las variables. Y podemos observar como el cambio en el desensamblado se refleja en el descompilado cuando se usa el motor nativo de radare, es decir, **r2dec**.
+Aqui tenemos la función **main** antes de renombrar algunas variables, donde se puede apreciar bastante la mezcla de nomenclatura assembler con el C.
+
+![img_014](img/img_014.png "main")
+
+### Original vs descompilado
+
+Pongamos de lado el codigo fuente original con el descompilado.
+
+![img_015](img/img_015.png "src vs src")
+
+Así, en un primera vista rápida, podemos identificar las variables **a**, **b**, y **c**.
 
 ### Renombrado de variables
 
-![img_013](img/img_013.png "variables")
+Vayamos a renombrar estas variables para ver que movimientos hace.
 
-En cambio, usando el motor de Ghidra vemos que los comentarios si se trasladan, pero el renombrado de variables no es efectivo, por lo que en lugar de ayudar puede dificultar su seguimiento en caso de un programa o función complejos.
+![img_016](img/img_016.png "renombrado variables")
 
-![img_014](img/img_014.png "variables en descompilado motor Ghidra")
+Podemos identificar en los grupos numerados con 1 (en amarillo) como se asignan los valores inciales a las variables, y los resultados de las llamadas a las funciones.
 
-### Tipos de variables
+Y en los grupos numerados con 2 (en rojo) como se asignan los valores a los diferentes parámetros que recibirán las funciones.
 
-En lo que a la definición y tipos de variables parece mas limpio con Cutter que con Ghidra una vez trasladado al codigo ensamblador. 
+Aún así, el descompilado queda algo confuso, con movimientos entre variables y registros que se podrian simplificar en algun caso, o que son incongruentes en otros. De la misma manera que interpreta la llamada a la función de la **suma()** con cuatro parámetros en lugar de dos.
 
-![img_015](img/img_015.png "definicion de tipos")
+![img_017](img/img_017.png "descompilado")
 
-### fin prog_c_001
+### Funciones
+
+En el caso de la **suma**, al ser una función muy corta quedan bastante claros los pasos y las respectivas variables, aunque en el descompilado usa los registros **edx** y **eax** para representar la operación de la suma en lugar de las variables.
+
+![img_018](img/img_018.png "suma")
+
+Y con la **resta** el caso es similar a la suma pero claramente comprensible la operación.
+
+![img_019](img/img_019.png "resta")
+
+### fin prog_c_002
 

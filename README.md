@@ -26,8 +26,10 @@ Para desarrollar y analizar los programas he usado las siguientes herramientas:
 
 ## Lista de Programas y su análisis
 
+### Programas en C 
+
 * [prog_c_001](analisis/prog_c_001/prog_c_001.md) Sencillo programa de consola con un "hola mundo" y suma de dos variables.
-* BBBB
+* [prog_c_002](analisis/prog_c_002/prog_c_002.md) Suma y resta dentro de funciones.
 * CCCC
 
 

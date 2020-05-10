@@ -140,4 +140,4 @@ Y con la **resta** el caso es similar a la suma pero claramente comprensible la 
 
 ### fin prog_c_002
 
-[<<== **ANTERIOR** prog_c_001](../analisis/prog_c_001/prog_c_001.md)
+[<<== **ANTERIOR** prog_c_001](../prog_c_001/prog_c_001.md)

@@ -46,53 +46,26 @@ Podemos comprobar que Ghidra no ha hecho un bucle **for**, sino lo ha convertido
 
 ### Main
 
-El punto de entrada se descompila de manera similar y no nos ofrece nada nuevo.
+Podemos observar como crea la variable **n** asignando el valor **0x32** (50 decimal) y como luego lo carga en la pila con **mov dword[esp],eax** (marcado en amarillo).
+
+El descompilado aparentemente comete un error por que nos muestra la llamada a la función **suma_n_enteros()** pasando 2 parámetros cuando en realidad solo es uno (señalado en verde).
+
+Después en el **printf()** previamente pasa 3 parámetros, el primero es la cadena de formato, el segundo es la variable **n**, y el tercero el resultado de la suma representado en el código con el registro **eax**, que previamente asigna a la variable **resultado_suma** pero que no se usa en el descompilado.
 
 ![img_006](img/img_006.png "main")
 
-La función **fcn.004011a0** también nos muestra claramente la llamada a la función **_main()** que es en la que nos centraremos a partir de ahora en los siguientes programas.
+### Suma n enteros
 
-![img_013](img/img_013.png "fcn.004011a0")
+La función de suma se muestra con un descompilado similar al que nos ofrece Ghidra; también usa un bucle **while**, aunque sigue fallando en la simplificación de variables y añade operaciones mostrando el registro **eax**.
 
-### Main
+En la parte del listado en ensamblador la diferencia frente a Ghidra es que las operaciones con variables son directamente con los nombres asignados, mostrando arriba la tabla de posiciones en la Pila, mientras que Ghidra nos muestra siempre un **EBP + variable**
 
-Aqui tenemos la función **main** antes de renombrar algunas variables, donde se puede apreciar bastante la mezcla de nomenclatura assembler con el C.
+En el caso de los saltos usa siempre direcciones de memoria, frente a las etiquetas de Ghidra.
 
-![img_014](img/img_014.png "main")
+![img_007](img/img_007.png "suma n enteros")
 
-### Original vs descompilado
 
-Pongamos de lado el codigo fuente original con el descompilado.
-
-![img_015](img/img_015.png "src vs src")
-
-Así, en un primera vista rápida, podemos identificar las variables **a**, **b**, y **c**.
-
-### Renombrado de variables
-
-Vayamos a renombrar estas variables para ver que movimientos hace.
-
-![img_016](img/img_016.png "renombrado variables")
-
-Podemos identificar en los grupos numerados con 1 (en amarillo) como se asignan los valores inciales a las variables, y los resultados de las llamadas a las funciones.
-
-Y en los grupos numerados con 2 (en rojo) como se asignan los valores a los diferentes parámetros que recibirán las funciones.
-
-Aún así, el descompilado queda algo confuso, con movimientos entre variables y registros que se podrian simplificar en algun caso, o que son incongruentes en otros. De la misma manera que interpreta la llamada a la función de la **suma()** con cuatro parámetros en lugar de dos.
-
-![img_017](img/img_017.png "descompilado")
-
-### Funciones
-
-En el caso de la **suma**, al ser una función muy corta quedan bastante claros los pasos y las respectivas variables, aunque en el descompilado usa los registros **edx** y **eax** para representar la operación de la suma en lugar de las variables.
-
-![img_018](img/img_018.png "suma")
-
-Y con la **resta** el caso es similar a la suma pero claramente comprensible la operación.
-
-![img_019](img/img_019.png "resta")
-
-### fin prog_c_002
+### fin prog_c_003
 
 [<<== **ANTERIOR** prog_c_002](../prog_c_002/prog_c_002.md)
 

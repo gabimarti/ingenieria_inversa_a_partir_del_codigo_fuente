@@ -33,6 +33,7 @@ Iré ampliando esta lista de programas a medida que el tiempo me lo permita.
 * [prog_c_001](analisis/prog_c_001/prog_c_001.md) Sencillo programa de consola con un "hola mundo" y suma de dos variables.
 * [prog_c_002](analisis/prog_c_002/prog_c_002.md) Suma y resta dentro de funciones.
 * [prog_c_003](analisis/prog_c_003/prog_c_003.md) Función de suma dentro de bucle for.
+* [prog_c_004](analisis/prog_c_004/prog_c_004.md) Cálculo del Factorial de un entero.
 
 
 ## Descargo de responsabilidad

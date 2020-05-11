@@ -7,9 +7,9 @@ En este caso vamos a hacer una función que sume los primeros **"n"** numeros pa
 
 Para ello usaremos un bucle **for** para ver como lo implementa en ensamblador.
 
-![img_001](img/img_001.png "main") 
+![img_001](img/img_001.png "código fuente") 
 
-Aqui vemos el resultado de la ejecución.
+Aquí vemos el resultado de la ejecución.
 
 ![img_002](img/img_002.png "ejecución") 
 
@@ -69,3 +69,4 @@ En el caso de los saltos usa siempre direcciones de memoria, frente a las etique
 
 [<<== **ANTERIOR** prog_c_002](../prog_c_002/prog_c_002.md)
 
+[**SIGUIENTE** prog_c_004 ==>>](../prog_c_004/prog_c_004.md)

@@ -7,9 +7,9 @@ Con este segundo programa introducimos las llamadas a las funciones, y creamos d
 
 Tras devolver los resultados se muestran por pantalla desde la función **main()**
 
-![img_001](img/img_001.png "main") 
+![img_001](img/img_001.png "código fuente") 
 
-Aqui vemos el resultado de la ejecución.
+Aquí vemos el resultado de la ejecución.
 
 ![img_002](img/img_002.png "ejecución") 
 
@@ -141,4 +141,5 @@ Y con la **resta** el caso es similar a la suma pero claramente comprensible la 
 ### fin prog_c_002
 
 [<<== **ANTERIOR** prog_c_001](../prog_c_001/prog_c_001.md)
+
 [**SIGUIENTE** prog_c_003 ==>>](../prog_c_003/prog_c_003.md)

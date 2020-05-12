@@ -13,60 +13,58 @@ Aquí introducimos también nuevas librerías y una entrada de datos si entrar e
 
 ![img_001](img/img_001.png "código fuente") 
 
-Aqui vemos el resultado de la ejecución.
+Aquí vemos el resultado de la ejecución.
 
 ![img_002](img/img_002.png "ejecución") 
 
 
 ## Análisis estático con Ghidra
 
-Pasamos a ver el código en **Ghidra**:
-
-
 ### Main
 
-Iremos directamente a la función **main()** a ver que nos encontramos.
+Analizando el **main()** veamos que novedades encontramos una vez cambiados los nombres autómaticos de las variables por los nuestros.
 
 ![img_003](img/img_003.png "main")
 
-El primer paso, como siempre, vamos a renombrar algunas variables para identificarlas mejor.
+Entraré ahora en un detalle que no he comentado en los análisis anteriores, y es en el espacio usado en la pila. Al principio de la función **main()** aparece arriba la definición de diferentes variables y su posición en la pila. Aquí podremos ver que estas posiciones que se cargan justo antes de las llamadas a las funciones son los parámetros que se pasan a estas, y que estas posiciones se reaprovechan de una función a otra, por lo que una vez identificadas se pueden renombrar como **parametro1**, **parametro2**, **parametro3**, etc...
 
-En el descompilado de Ghidra, como es habitual, simplifica el código y solo crea la variable que guarda el resultado de la suma, y la variable **n** no la crea, sinó que pone directamente el valor como parámetro de la función. 
+Como ejemplo, en el caso de la llamada al primer **printf**, como se carga como parámetro el texto que se muestra, y en este caso lo carga desde la sección de de datos **.rdata** (señalizado en amarillo).
 
-Esta diferencia se ve reflejada en el código en ensamblador donde se ve la creación de la variable **n** y posteriormente el movimiento a la pila donde se pasa como parámetro (indicado en color naranja).
+Algo similar pasa con la función **scanf()** que recibe dos parámetros. El segundo es la dirección de memoria de la variable donde va a almacenar el numero que se solicita, y el primer parámetro es el formato del contenido que se va a entrar (señalizado en rojo y celeste).
 
-![img_004](img/img_004.png "variables")
+Donde se aprecia una diferencia con el código original es en el **if** que teníamos con un **or** comparando con menor de 0 y mayor de 23 y aquí se ha simplificado en el código en ensamblador con un **CMP EAX, 0x17**, es decir, compara con 23 y si el resultado es menor o igual salta a la parte de código que llamará a la función.
 
-### Suma n enteros
+En la traducción del descompilado no es exactamente igual, pues lo traduce por un **if** comparando con **0x18** (24 dec), nótese esta diferencia (señalizado en verde).
 
-Pasamos a ver ahora la función de la suma, pero mostraré directamente las funciones con las variables renombradas, pues llegados a este punto creo que ya se entiende el procedimiento.
+Y otra curiosidad, y esto si es una optimización del compilador. Se ha sustituido el **printf** del mensaje de error, por un **puts** puesto que es un texto simple y no recibe ninguna cadena con formato ni variables adicionales (señalizado en rosa/morado).
 
-![img_005](img/img_005.png "suma n enteros")
+![img_004](img/img_004.png "main 2")
 
-Podemos comprobar que Ghidra no ha hecho un bucle **for**, sino lo ha convertido en un **while**, aunque ya sabemos que en ensamblador todos los bucles serán iguales por que serán todos compuestos por una comparación **CMP** seguida de un salto condicional, **JLE** en este caso. 
- 
+Ya centrándonos en la llamada a la función **factorial** podemos ver donde se carga el parámetro a pasar a la función (señalizado en verde), para luego recibir el resultado sobre el mismo registro **EAX**.
+
+Y para acabar carga los parámetros para la función **printf** con el resultado, siendo el **parámetro1** la cadena con el formato (en rojo), el **parámetro2** el número a calcular el factorial (en naranja), y el **parámetro3** el factorial calculado (en azul).
+
+### Factorial
+
+El la función principal de este programa podemos ver que el código en **C** generado es casi exacto al original. Podemos ver que las variables las declara como **int** en lugar de **long int** como está en el código original, por que en realidad el código en ensamblador lo sigue tratando con 32 bits.
+
+Se identifica sin problema la inicialización de la variable **f** que devuelve el factorial, el parametro **n**, que es el numero del que se desea el factorial, y es el contador del bucle, y la condición de control del bucle.
+
+![img_005](img/img_005.png "factorial")
 
 ## Análisis estático con Cutter
 
 ### Main
 
-Podemos observar como crea la variable **n** asignando el valor **0x32** (50 decimal) y como luego lo carga en la pila con **mov dword[esp],eax** (marcado en amarillo).
-
-El descompilado aparentemente comete un error por que nos muestra la llamada a la función **suma_n_enteros()** pasando 2 parámetros cuando en realidad solo es uno (señalado en verde).
-
-Después en el **printf()** previamente pasa 3 parámetros, el primero es la cadena de formato, el segundo es la variable **n**, y el tercero el resultado de la suma representado en el código con el registro **eax**, que previamente asigna a la variable **resultado_suma** pero que no se usa en el descompilado.
+Aquí **Cutter** nos ofrece en el Descompilado una estructura mas parecida al código ensamblador haciendo la comparación con el valor **0x17** (23 dec), también se aprecia sin problema la creación de variables y paso de parámetros, aunque el descompilador falla en este aspecto, pues en el último **printf** (señalado en rojo y con interrogante) pone el texto con la cadena de formato, pero no se incluyen las variables **n** y **f** que estan representadas por **param_n** y **param_f**.
 
 ![img_006](img/img_006.png "main")
 
-### Suma n enteros
+### Factorial
 
-La función de suma se muestra con un descompilado similar al que nos ofrece Ghidra; también usa un bucle **while**, aunque sigue fallando en la simplificación de variables y añade operaciones mostrando el registro **eax**.
+Ninguna novedad respecto a partes anteriores del análisis puesto que el ensamblador queda claro, y en la parte de descompilado adolece por la representación del uso de los registros del procesador, que si sabemos abstraer mentalmente nos quedan claras las operaciones del programa.
 
-En la parte del listado en ensamblador la diferencia frente a Ghidra es que las operaciones con variables son directamente con los nombres asignados, mostrando arriba la tabla de posiciones en la Pila, mientras que Ghidra nos muestra siempre un **EBP + variable**
-
-En el caso de los saltos usa siempre direcciones de memoria, frente a las etiquetas de Ghidra.
-
-![img_007](img/img_007.png "suma n enteros")
+![img_007](img/img_007.png "factorial")
 
 
 ### fin prog_c_004

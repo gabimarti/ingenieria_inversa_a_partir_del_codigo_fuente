@@ -22,10 +22,8 @@ int main(int argc, char **argv)
     scanf(" %ld", &n);
     
     // Validamos por para poner un limite
-    if (n<0) {
-        printf("No acepto numeros negativos\n");
-    } else if (n>23) {
-        printf("No acepto numeros superiores a 23\n");
+    if (n<0 || n>23) {
+        printf("No acepto numeros negativos o superiores a 23\n");
     } else {    
         f = factorial(n);
         printf("El Factorial de %lu es %lu\n",n,f);

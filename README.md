@@ -36,6 +36,9 @@ Iré ampliando esta lista de programas a medida que el tiempo me lo permita.
 * [prog_c_003](analisis/prog_c_003/prog_c_003.md) Función de suma dentro de bucle for.
 * [prog_c_004](analisis/prog_c_004/prog_c_004.md) Cálculo del Factorial de un entero.
 
+### Programas en Free Pascal / Object Pascal
+
+* [prog_vp_001](analisis/prog_vp_001/prog_vp_001.md) Sencillo programa de consola con un "hola mundo" y suma de dos variables. Versión en Pascal de su homólogo en C [prog_c_001](analisis/prog_c_001/prog_c_001.md).
 
 ## Descargo de responsabilidad
 

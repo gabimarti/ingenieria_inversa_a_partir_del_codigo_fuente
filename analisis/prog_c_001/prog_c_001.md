@@ -108,6 +108,22 @@ En lo que a la definición y tipos de variables parece mas limpio con Cutter que
 
 ![img_015](img/img_015.png "definicion de tipos")
 
+## ANEXO
+
+Con la inclusión de nuevos compiladores me he dado cuenta que he dado por supuestas muchas cosas, y en algunos de los análisis añadiré **ANEXOS** para hacer hincapié en diferencias o en peculiaridades del código ensamblador dependiendo del compilador usado.
+
+### Paso de parámetros y convenciones
+
+Los programas compilador con **MinGW** utilizan la convención [**__cdecl**](https://docs.microsoft.com/es-es/cpp/cpp/cdecl?view=vs-2019), que es la convención estandard del **Lenguaje C** y usada por muchos compiladores **C** (aunque no tienen por que ser en todos).
+
+Esta convención dice que todos los parámetros pasados a las funciones se harán a través de la pila, insertando los parámetros de derecha a izquierda (señalado en azul).
+ 
+![img_016](img/img_016.png "paso de parámetros")
+
+Y el resultado de las funciones se devuelve siempre sobre el registro **EAX** tal y como se muestra en la siguiente imagen.
+
+![img_017](img/img_017.png "retorno función")
+
 ### fin prog_c_001
 
 [**SIGUIENTE** prog_c_002 ==>>](../prog_c_002/prog_c_002.md)

@@ -20,6 +20,7 @@ Para desarrollar y analizar los programas he usado las siguientes herramientas:
 
 * IDE [Codelite](https://codelite.org/)
 * Compilador de C/C++ [MinGW](http://www.mingw.org/)
+* Compilador de Free Pascal / Object Pascal [Lazarus](https://www.lazarus-ide.org/)
 * Reversing [Ghidra](https://ghidra-sre.org/)
 * Reversing [Cutter + Radare2](https://cutter.re/)
 

@@ -28,6 +28,8 @@ Analizando el **main()** veamos que novedades encontramos una vez cambiados los 
 
 Entraré ahora en un detalle que no he comentado en los análisis anteriores, y es en el espacio usado en la pila. Al principio de la función **main()** aparece arriba la definición de diferentes variables y su posición en la pila. Aquí podremos ver que estas posiciones que se cargan justo antes de las llamadas a las funciones son los parámetros que se pasan a estas, y que estas posiciones se reaprovechan de una función a otra, por lo que una vez identificadas se pueden renombrar como **parametro1**, **parametro2**, **parametro3**, etc...
 
+***NOTA:*** Posteriormente he añadido un **anexo** en el primer análisis, el de [**prog_c_001**](../prog_c_001/prog_c_001.md) donde hago mención a la convención de paso de parámetros **__cdecl**.
+
 Como ejemplo, en el caso de la llamada al primer **printf**, como se carga como parámetro el texto que se muestra, y en este caso lo carga desde la sección de de datos **.rdata** (señalizado en amarillo).
 
 Algo similar pasa con la función **scanf()** que recibe dos parámetros. El segundo es la dirección de memoria de la variable donde va a almacenar el numero que se solicita, y el primer parámetro es el formato del contenido que se va a entrar (señalizado en rojo y celeste).
@@ -71,3 +73,4 @@ Ninguna novedad respecto a partes anteriores del análisis puesto que el ensambl
 
 [<<== **ANTERIOR** prog_c_003](../prog_c_003/prog_c_003.md)
 
+[**SIGUIENTE** prog_vp_001 ==>>](../prog_vp_001/prog_vp_001.md)

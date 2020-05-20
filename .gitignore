@@ -13,3 +13,4 @@ src/Makefile
 *.json
 *.txt
 *.project
+Thumbs.db

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="C:\lazarus\fpc\3.0.4\bin\x86_64-win64\fpc.exe" Date="1351329191"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq -FiZ:\ProgramacioVMrev\ingenieria_inversa_a_partir_del_codigo_fuente\src\prog_vp_001\lib\x86_64-win64 -FuZ:\ProgramacioVMrev\ingenieria_inversa_a_partir_del_codigo_fuente\src\prog_vp_001\ -FUZ:\ProgramacioVMrev\ingenieria_inversa_a_partir_del_codigo_fuente\src\prog_vp_001\lib\x86_64-win64\ -FEZ:\ProgramacioVMrev\ingenieria_inversa_a_partir_del_codigo_fuente\src\prog_vp_001\ -oZ:\ProgramacioVMrev\ingenieria_inversa_a_partir_del_codigo_fuente\src\prog_vp_001\prog_vp_001.exe prog_vp_001.lpr"/>
-</CONFIG>

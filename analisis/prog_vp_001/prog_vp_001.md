@@ -92,13 +92,15 @@ En la carga "*por defecto*" con el análisis normal "**aaa**" aparecen algunas i
 
 Así pues experimento con diferentes opciones en la carga. Está claro que no ha reconocido el formato del ejecutable, bien que es de Windows, o que es de 64 bits, o cualquier otra opción que ahora yo desconozco.
 
+En la carga del binario, en **Opciones avanzadas** fuerzo opciones de CPU indicando que el Kernel des **Windos** y el formato del ejecutable es **pe64**.
+
 ![img_013](img/img_013.png "load options")
 
 Esta vez ya muestra en **entry0** el codigo válido para 64 bits y las llamadas a la funciones. Aunque sigue sin haber una referencia a la función **main** si vamos siguiendo las llamadas a las diferentes funciones. Hago un seguimiento y entro en la llamada a la función **call fcn.100008c90**
 
 ![img_014](img/img_014.png "entry0 64")
 
-Sigo el hilo y vamos a la siguiente llamada, justo después del **lea rdx,[rdx]** que no aparece reflejado en el descompilado ( ??? ).
+Sigo el hilo y vamos a la siguiente llamada, justo después del **lea rdx,[rdx]** que no aparece reflejado en el descompilado (error del descompilador???).
 
 ![img_015](img/img_015.png "fcn.100008c90")
 
@@ -106,13 +108,13 @@ Y aquí tenemos una llamada a la dirección cargada en el registro **RDX**, dond
 
 ![img_016](img/img_016.png "call rdx")
 
-Y aqui tenemos la función **rdx** que nos muestra Cutter antes de pasar a renombrar algunos simbolos y variables.
+Veamos la función **rdx** que nos muestra Cutter antes de pasar a renombrar algunos simbolos y variables.
 
 ![img_017](img/img_017.png "rdx")
 
 ### Main
 
-Y aquí tenemos el **main** aunque la interface no me ha permitido asignar nombres de variables a las zonas de memoria correspondietes a las variables **a**, **b** y **c**.
+Finalmente, este sería el **main** aunque la interface no me ha permitido asignar nombres de variables a las zonas de memoria correspondientes a las variables **a**, **b** y **c**.
 
 ![img_018](img/img_018.png "main")
 

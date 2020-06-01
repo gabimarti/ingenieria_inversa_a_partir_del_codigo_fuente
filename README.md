@@ -39,7 +39,7 @@ Iré ampliando esta lista de programas a medida que el tiempo me lo permita.
 ### Programas en Free Pascal / Object Pascal
 
 * [prog_vp_001](analisis/prog_vp_001/prog_vp_001.md) Sencillo programa de consola con un "hola mundo" y suma de dos variables. Versión en Pascal de su homólogo en C [prog_c_001](analisis/prog_c_001/prog_c_001.md).
-* [prog_vp_002](analisis/prog_vp_002/prog_vp_002.md) Función de suma de enteros dentro de bucle for. Versión en Pascal de su homólogo en C [prog_c_003](analisis/prog_c_003/prog_c_003.md).
+* [prog_vp_002](analisis/prog_vp_002/prog_vp_002.md) Función de suma de enteros dentro de bucle for. Versión en Pascal de [prog_c_003](analisis/prog_c_003/prog_c_003.md).
 
 ## Descargo de responsabilidad
 

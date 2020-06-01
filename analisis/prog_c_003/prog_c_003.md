@@ -3,7 +3,7 @@
 
 ## El programa (Código Fuente)
 
-En este caso vamos a hacer una función que sume los primeros **"n"** numeros pasados como parámetro y nos devuelva el resultado de esta suma.
+En este caso vamos a hacer una función que sume los primeros **"n"** números pasados como parámetro y nos devuelva el resultado de esta suma.
 
 Para ello usaremos un bucle **for** para ver como lo implementa en ensamblador.
 

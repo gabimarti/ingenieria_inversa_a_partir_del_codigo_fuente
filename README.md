@@ -50,4 +50,4 @@ Toda la información vertida aquí ha sido única y exclusivamente con objeto de
 
 Siéntete libre de contactar conmigo si quieres hacer cualquier comentario, sugerencia o contribución.
 
-Twitter: [**@H0l3Bl4ck**](https://twitter.com/H0l3Bl4ck)
+Twitter: [**@310hkc41b**](https://twitter.com/310hkc41b)
